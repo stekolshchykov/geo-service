@@ -1,4 +1,4 @@
-# Geo-Service Project
+# Geo-Service
 
 The **Geo-Service** project provides tools for IP-based services, including geolocation lookups via SypexGeo and IP range validations. You can fetch geolocation data based on an IP address, verify if an IP falls within a certain range, and check if IP ranges are valid.
 

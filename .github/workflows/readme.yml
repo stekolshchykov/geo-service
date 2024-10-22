@@ -7,9 +7,6 @@ on:
       - 'README.md'
 
 jobs:
-  build-and-push:
-    runs-on: ubuntu-latest
-    steps:
   PushContainerReadme:
     runs-on: ubuntu-latest
     name: Push README to Docker Hub
