@@ -5,6 +5,6 @@ import { getIpLocation } from '../controllers/ip.controller';
 
 const router = Router();
 
-router.get('/info/:ip', validateRequest(ipSchema, 'params'), getIpLocation); // Используем 'params' для валидации параметров
+router.get('/sypexgeo/:ip', validateRequest(ipSchema, 'params'), getIpLocation); // Используем 'params' для валидации параметров
 
 export default router;
