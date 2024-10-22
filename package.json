@@ -12,6 +12,7 @@
   "dependencies": {
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
+    "ipaddr.js": "^2.2.0",
     "joi": "^17.13.3",
     "sxgeo-node": "^0.0.2"
   },

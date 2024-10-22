@@ -1,5 +1,4 @@
 import express from 'express';
-import userRoutes from './routes/user.route';
 import ipRoutes from './routes/ip.route'; // Подключение маршрутов для IP
 import errorHandler from './middlewares/errorHandler.middleware';
 import * as dotenv from 'dotenv';
