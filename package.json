@@ -6,7 +6,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=production node dist/server.js",
     "build": "rollup -c",
-    "dev": "ts-node --project tsconfig.dev.json src/server.ts"
+    "dev": "ts-node --project tsconfig.json src/server.ts"
   },
   "private": true,
   "dependencies": {

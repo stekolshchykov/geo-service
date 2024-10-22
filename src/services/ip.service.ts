@@ -1,6 +1,6 @@
 import SxGeo from 'sxgeo-node';
 import path from 'path';
-console.log(process.env.NODE_ENV )
+
 const dataFilePath = process.env.NODE_ENV === 'production'
     ? path.resolve(__dirname, './data/SxGeoCity.dat')  // Путь для production (после сборки)
     : path.resolve(__dirname, '../data/SxGeoCity.dat');  // Путь для разработки
