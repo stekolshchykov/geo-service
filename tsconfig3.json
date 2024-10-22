@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "target": "ES2022", // или любой другой целевой стандарт
+    "module": "ES2022",
+    "esModuleInterop": true, // Включите эту строку
+    "skipLibCheck": true, // Это может помочь избежать ошибок в типах сторонних библиотек
+    "strict": true, // По желанию, если хотите включить строгую проверку
+    "outDir": "./dist", // Папка для компилированных файлов
+    "rootDir": "./src" // Исходная папка вашего кода
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
+}
