@@ -1,0 +1,20 @@
+name: Readme
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/**'
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Docker Hub Description
+        uses: peter-evans/dockerhub-description@v4
+        with:
+          username: ${{ secrets.STEKOLSHCHYKOV_DOCKER_USERNAME }}
+          password: ${{ secrets.STEKOLSHCHYKOV_DOCKER_TOKEN }}
+          repository: peterevans/dockerhub-description
