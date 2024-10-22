@@ -4,7 +4,7 @@ on:
     branches:
       - main
     paths:
-      - 'src/**'
+      - 'README.md'
 
 jobs:
   build-and-push:
@@ -17,4 +17,4 @@ jobs:
         with:
           username: ${{ secrets.STEKOLSHCHYKOV_DOCKER_USERNAME }}
           password: ${{ secrets.STEKOLSHCHYKOV_DOCKER_TOKEN }}
-          repository: peterevans/dockerhub-description
+          repository: stekolshchykov/geo-service
