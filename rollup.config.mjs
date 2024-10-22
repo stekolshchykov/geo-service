@@ -5,6 +5,8 @@ import json from '@rollup/plugin-json';
 import { terser } from 'rollup-plugin-terser';
 import copy from 'rollup-plugin-copy';
 
+const isDev = process.env.NODE_ENV === 'development';
+
 export default {
     input: 'src/server.ts',
     output: {
@@ -16,7 +18,8 @@ export default {
         resolve(),
         commonjs(),  // Включите поддержку CommonJS модулей
         typescript({
-            tsconfig: './tsconfig.json',
+            tsconfig: isDev ? 'tsconfig.dev.json' : 'tsconfig.prod.json',
+            clean: true,
         }),
         json(),
         terser(),
