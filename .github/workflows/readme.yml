@@ -10,11 +10,18 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Docker Hub Description
-        uses: peter-evans/dockerhub-description@v4
+  PushContainerReadme:
+    runs-on: ubuntu-latest
+    name: Push README to Docker Hub
+    steps:
+      - name: git checkout
+        uses: actions/checkout@v2
+      - name: push README to Dockerhub
+        uses: christian-korneck/update-container-description-action@v1
+        env:
+          DOCKER_USER: ${{ secrets.STEKOLSHCHYKOV_DOCKER_USERNAME }}
+          DOCKER_PASS: ${{ secrets.STEKOLSHCHYKOV_DOCKER_TOKEN }}
         with:
-          username: ${{ secrets.STEKOLSHCHYKOV_DOCKER_USERNAME }}
-          password: ${{ secrets.STEKOLSHCHYKOV_DOCKER_TOKEN }}
-          repository: stekolshchykov/geo-service
+          destination_container_repo: stekolshchykov/geo-service
+          provider: dockerhub
+          readme_file: 'README.md'
