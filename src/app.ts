@@ -2,7 +2,7 @@ import express from 'express';
 import userRoutes from './routes/user.route';
 import ipRoutes from './routes/ip.route'; // Подключение маршрутов для IP
 import errorHandler from './middlewares/errorHandler.middleware';
-import dotenv from 'dotenv';
+import * as dotenv from 'dotenv';
 
 dotenv.config();
 
