@@ -1,69 +1,118 @@
-# Geo-Service
+# GEO Service
 
-The **Geo-Service** project provides tools for IP-based services, including geolocation lookups via SypexGeo and IP range validations. You can fetch geolocation data based on an IP address, verify if an IP falls within a certain range, and check if IP ranges are valid.
+## 1. Get IP Location (SypexGeo)
 
-### Features
-- **SypexGeo Integration**: Retrieve geolocation details such as city, region, and country using the `/sypexgeo/:ip` endpoint.
-- **IP Range Validation**: Verify if an IP is within a specified range with `/is-ip-in-range/` and validate ranges with `/is-valid-range/`.
-- **Check IP Against List**: Compare a given IP against a list of IP addresses using the `/check-ip-against-list/` endpoint.
+### Request:
 
-### Endpoints
-1. **Get IP Location**:  
-   `GET /sypexgeo/:ip`  
-   Fetches geolocation details for a given IP using SypexGeo.
+GET /api/sypexgeo/8.8.8.8
 
-2. **Is IP in Range**:  
-   `GET /is-ip-in-range/`  
-   Checks if an IP is within a specified range.
+### Expected Response:
 
-3. **Is Valid IP Range**:  
-   `GET /is-valid-range/`  
-   Validates whether the given range is a valid IP range.
-
-4. **Check IP Against List**:  
-   `GET /check-ip-against-list/`  
-   Compares an IP with a predefined list of IP addresses.
-
-### Schemas
-Each endpoint uses **Joi** for request validation to ensure proper input formats, requiring valid IP strings and ranges.
-
-### Project Structure
-```
-├── Dockerfile
-├── package.json
-├── src
-│   ├── app.ts
-│   ├── controllers
-│   ├── data
-│   ├── libs
-│   ├── middlewares
-│   ├── models
-│   ├── routes
-│   ├── services
-│   ├── types
-│   └── validation
-├── tsconfig.json
-└── rollup.config.mjs
+```json
+{
+  "status": "success",
+  "data": {
+    "city": {
+      "name_en": "Mountain View",
+      "lat": 37.386,
+      "lon": -122.0838
+    },
+    "region": {
+      "name_en": "California"
+    },
+    "country": {
+      "name_en": "United States",
+      "iso": "US"
+    }
+  }
+}
 ```
 
-### Running the Project
-You can run the project either through Docker or locally:
+## 2. Get IP Location (IPInfo)
 
-#### Docker:
-```bash
-docker run -p 3000:3000 stekolshchykov/geo-service
+### Request:
+
+GET /api/ipinfo/1.1.1.1
+
+### Expected Response:
+
+```json
+{
+  "status": "success",
+  "data": {
+    "ip": "1.1.1.1",
+    "city": "Sydney",
+    "region": "New South Wales",
+    "country": "AU",
+    "loc": "-33.8650,151.2094",
+    "org": "APNIC and Cloudflare DNS Resolver project",
+    "postal": "2000",
+    "timezone": "Australia/Sydney"
+  }
+}
 ```
 
-#### Locally:
-1. **Development**:
-   ```bash
-   yarn dev
-   ```
-2. **Build**:
-   ```bash
-   yarn build
-   ```
-3. **Production**:
-   ```bash
-   yarn start
-   ```
+## 3. Check if IP is in Range
+
+### Request:
+
+POST /api/is-ip-in-range/
+
+```json
+{
+  "ip": "192.168.1.10",
+  "range": "192.168.1.0/24"
+}
+```
+
+### Expected Response:
+
+```json
+{
+  "status": "success",
+  "data": true
+}
+```
+
+## 4. Validate IP Range
+
+### Request:
+
+POST /api/is-valid-range/
+
+```json
+{
+  "range": "192.168.0.0/16"
+}
+```
+
+### Expected Response:
+
+```json
+{
+  "status": "success",
+  "data": true
+}
+```
+
+## 5. Check IP Against List
+
+### Request:
+
+POST /api/check-ip-against-list/
+
+```json
+{
+  "ip": "104.28.222.28",
+  "ipList": "104.28.200.28-104.28.200.30\n104.28.222.28-104.28.222.30"
+}
+```
+
+### Expected Response:
+
+```json
+{
+  "status": "success",
+  "data": true
+}
+```
