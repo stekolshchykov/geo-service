@@ -17,7 +17,7 @@ export const getLocationByIpIpinfo = async (ip: string): Promise<IpInfoResponseI
     return await axios.get(`https://ipinfo.io/${ip}/json`)
         .then(response => response.data)
         .catch(error => {
-            console.log("* * getLocationByIpIpinfo catch", error)
+            console.log("* * getLocationByIpIpinfo catch", ip, error?.response?.data)
             return false
         })
 };

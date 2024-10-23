@@ -13,8 +13,8 @@ const router = Router();
 
 router.get('/sypexgeo/:ip', validateRequest(ipSchema, 'params'), getIpLocationSypexgeo);
 router.get('/ipinfo/:ip', validateRequest(ipSchema, 'params'), getIpLocationIpinfo);
-router.get('/is-ip-in-range/', validateRequest(isIpInRangeSchema), isIpInRange);
-router.get('/is-valid-range/', validateRequest(isValidIpRangeSchema), isValidIpRange);
-router.get('/check-ip-against-list/', validateRequest(checkIpAgainstListSchema), checkIpAgainstList);
+router.post('/is-ip-in-range/', validateRequest(isIpInRangeSchema), isIpInRange);
+router.post('/is-valid-range/', validateRequest(isValidIpRangeSchema), isValidIpRange);
+router.post('/check-ip-against-list/', validateRequest(checkIpAgainstListSchema), checkIpAgainstList);
 
 export default router;
