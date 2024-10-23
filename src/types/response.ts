@@ -3,3 +3,15 @@ export interface ApiResponse<T> {
     data: T | null;
     message?: string;
 }
+
+
+export interface IpInfoResponseI {
+    ip: string
+    city: string
+    region: string
+    country: string
+    loc: string
+    org: string
+    postal: string
+    timezone: string
+}
