@@ -4,19 +4,18 @@ import SxGeo from 'sxgeo-node';
 import ipInfoDbManager from "../libs/IpInfoManager";
 import {IpInfoResponseI, IpInfoResultI} from "../types/response";
 
+//
+
 const sxGeoDataFilePath = process.env.NODE_ENV === 'production'
     ? path.resolve(__dirname, './data/SxGeoCity.dat')
     : path.resolve(__dirname, '../data/SxGeoCity.dat');
 
-const ipInfoDataFilePath = process.env.NODE_ENV === 'production'
-    ? path.resolve(__dirname, './data/country_asn.csv')
-    : path.resolve(__dirname, '../data/country_asn.csv');
-
 const sxgeo = new SxGeo(sxGeoDataFilePath);
-
 export const getLocationByIpSypexgeo = (ip: string) => {
     return sxgeo.getCityFull(ip);
 };
+
+//
 
 export const getLocationByIpIpinfo = async (ip: string): Promise<IpInfoResponseI | false> => {
     return await axios.get(`https://ipinfo.io/${ip}/json`)
@@ -28,6 +27,10 @@ export const getLocationByIpIpinfo = async (ip: string): Promise<IpInfoResponseI
 };
 
 //
+
+const ipInfoDataFilePath = process.env.NODE_ENV === 'production'
+    ? path.resolve(__dirname, './data/country_asn.csv')
+    : path.resolve(__dirname, '../data/country_asn.csv');
 
 ipInfoDbManager.loadCSV(ipInfoDataFilePath)
 export const getLocationByLocIpIpinfo = (ip: string): IpInfoResultI | false => {
