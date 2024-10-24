@@ -40,11 +40,9 @@ class IpInfoManager {
                     });
                 })
                 .on('end', () => {
-                    console.log(4, "loadCSV end")
                     resolve();
                 })
                 .on('error', () => {
-                    console.log(4, "loadCSV error")
                     reject()
                 });
         });
