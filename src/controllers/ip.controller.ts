@@ -75,10 +75,7 @@ export const checkIpAgainstList = (req: Request, res: Response): void => {
 
 export const getIpLocationIpinfoLoc = (req: Request, res: Response): void => {
     const {ip} = req.params;
-    console.log(1, ip)
     const location = getLocationByLocIpIpinfo(ip);
-    console.log(2, location)
-
     if (!location) {
         const response: ApiResponse<null> = {
             status: 'error',

@@ -1,6 +1,7 @@
 import csv from 'csv-parser';
 import fs from 'fs';
 import * as ipaddr from 'ipaddr.js';
+import * as zlib from "node:zlib";
 import {IpInfoResultI} from "../types/response"
 
 class IpInfoManager {
@@ -8,7 +9,6 @@ class IpInfoManager {
     private ipRanges: IpInfoResultI[] = [];
 
     public findIP = (ip: string): IpInfoResultI | false => {
-        console.log(3, "findIP")
         for (const range of this.ipRanges) {
             if (this.isIPInRange(ip, {start: range.start_ip, end: range.end_ip})) {
                 return range;
@@ -19,7 +19,12 @@ class IpInfoManager {
 
     public loadCSV = (filePath: string): Promise<void> => {
         return new Promise((resolve, reject) => {
-            fs.createReadStream(filePath)
+
+            const gzFilePath = `${filePath}.gz`;
+            const gunzip = zlib.createGunzip();
+
+            fs.createReadStream(gzFilePath)
+                .pipe(gunzip)
                 .pipe(csv())
                 .on('data', (row) => {
                     this.ipRanges.push({
