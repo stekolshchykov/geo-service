@@ -1,6 +1,6 @@
 import {Request, Response} from 'express';
 import ipInspector from "../libs/IPInspector";
-import {getLocationByIpIpinfo, getLocationByIpSypexgeo} from '../services/ip.service';
+import {getLocationByIpIpinfo, getLocationByIpSypexgeo, getLocationByLocIpIpinfo} from '../services/ip.service';
 import {ApiResponse} from '../types/response';
 
 
@@ -69,4 +69,28 @@ export const checkIpAgainstList = (req: Request, res: Response): void => {
         data: ipInspector.checkIpAgainstList(ip, ipList)
     };
     res.status(200).json(response);
+};
+
+//
+
+export const getIpLocationIpinfoLoc = (req: Request, res: Response): void => {
+    const {ip} = req.params;
+    console.log(1, ip)
+    const location = getLocationByLocIpIpinfo(ip);
+    console.log(2, location)
+
+    if (!location) {
+        const response: ApiResponse<null> = {
+            status: 'error',
+            data: null,
+            message: `Invalid IP address or location not found: ${ip}`
+        };
+        res.status(400).json(response);
+    } else {
+        const response: ApiResponse<typeof location> = {
+            status: 'success',
+            data: location
+        };
+        res.status(200).json(response);
+    }
 };

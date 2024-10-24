@@ -2,6 +2,7 @@ import {Router} from 'express';
 import {
     checkIpAgainstList,
     getIpLocationIpinfo,
+    getIpLocationIpinfoLoc,
     getIpLocationSypexgeo,
     isIpInRange,
     isValidIpRange
@@ -13,6 +14,7 @@ const router = Router();
 
 router.get('/sypexgeo/:ip', validateRequest(ipSchema, 'params'), getIpLocationSypexgeo);
 router.get('/ipinfo/:ip', validateRequest(ipSchema, 'params'), getIpLocationIpinfo);
+router.get('/ipinfo/loc/:ip', validateRequest(ipSchema, 'params'), getIpLocationIpinfoLoc);
 router.post('/is-ip-in-range/', validateRequest(isIpInRangeSchema), isIpInRange);
 router.post('/is-valid-range/', validateRequest(isValidIpRangeSchema), isValidIpRange);
 router.post('/check-ip-against-list/', validateRequest(checkIpAgainstListSchema), checkIpAgainstList);

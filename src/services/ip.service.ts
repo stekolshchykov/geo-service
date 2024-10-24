@@ -1,16 +1,21 @@
 import axios from "axios";
 import path from 'path';
 import SxGeo from 'sxgeo-node';
-import {IpInfoResponseI} from "../types/response";
+import ipInfoDbManager from "../libs/IpInfoManager";
+import {IpInfoResponseI, IpInfoResultI} from "../types/response";
 
-const dataFilePath = process.env.NODE_ENV === 'production'
-    ? path.resolve(__dirname, './data/SxGeoCity.dat')  // Путь для production (после сборки)
-    : path.resolve(__dirname, '../data/SxGeoCity.dat');  // Путь для разработки
+const sxGeoDataFilePath = process.env.NODE_ENV === 'production'
+    ? path.resolve(__dirname, './data/SxGeoCity.dat')
+    : path.resolve(__dirname, '../data/SxGeoCity.dat');
 
-const sxgeo = new SxGeo(dataFilePath);
+const ipInfoDataFilePath = process.env.NODE_ENV === 'production'
+    ? path.resolve(__dirname, './data/country_asn.csv')
+    : path.resolve(__dirname, '../data/country_asn.csv');
+
+const sxgeo = new SxGeo(sxGeoDataFilePath);
 
 export const getLocationByIpSypexgeo = (ip: string) => {
-    return sxgeo.getCityFull(ip); // Вернет данные местоположения или false
+    return sxgeo.getCityFull(ip);
 };
 
 export const getLocationByIpIpinfo = async (ip: string): Promise<IpInfoResponseI | false> => {
@@ -20,4 +25,11 @@ export const getLocationByIpIpinfo = async (ip: string): Promise<IpInfoResponseI
             console.log("* * getLocationByIpIpinfo catch", ip, error?.response?.data)
             return false
         })
+};
+
+//
+
+ipInfoDbManager.loadCSV(ipInfoDataFilePath)
+export const getLocationByLocIpIpinfo = (ip: string): IpInfoResultI | false => {
+    return ipInfoDbManager.findIP(ip)
 };
